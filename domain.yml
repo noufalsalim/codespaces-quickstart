@@ -11,9 +11,11 @@ slots:
       - type: from_llm
   has_sufficient_funds:
     type: bool
+    mappings:
+      - type: custom
 
-action:
-  action_check_sufficient_funds
+actions:
+  - action_check_sufficient_funds
 
 responses:
   utter_ask_recipient:
@@ -24,6 +26,9 @@ responses:
 
   utter_transfer_complete:
     - text: "All done. {amount} has been sent to {recipient}."
+
+  utter_insufficient_funds:
+    - text: "Insufficient fund in account"
 
   utter_free_chitchat_response:
     - text: "placeholder"

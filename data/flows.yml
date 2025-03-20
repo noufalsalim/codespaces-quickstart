@@ -3,12 +3,18 @@ flows:
     description: Help users send money to friends and family.
     steps:
       - collect: recipient
-      - collect: amount
+      - id: ask_amount
+        collect: amount
         description: the number of US dollars to send
       - action: action_check_sufficient_funds
         next:
-          - if: has_sufficient_funds
+          - if: not slots.has_sufficient_funds
             then:
-              - action: utter_transfer_complete
+              - action: utter_insufficient_funds
+              - set_slots:
+                  - amount: null
+                next: ask_amount
           - else:
-            - action: utter_not_sufficient_funds
+            - action: utter_transfer_complete
+              next: END
+
