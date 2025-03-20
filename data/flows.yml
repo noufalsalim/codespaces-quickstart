@@ -1,0 +1,14 @@
+flows:
+  transfer_money:
+    description: Help users send money to friends and family.
+    steps:
+      - collect: recipient
+      - collect: amount
+        description: the number of US dollars to send
+      - action: action_check_sufficient_funds
+        next:
+          - if: has_sufficient_funds
+            then:
+              - action: utter_transfer_complete
+          - else:
+            - action: utter_not_sufficient_funds
